@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Livros</title>
+</head>
+<body>
+<h1>Lista de Títulos</h1>
+<div id="titulos"></div>
+
+<script>
+    fetch('livros.xml')
+        .then(response => response.text())
+        .then(data => {
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(data, 'application/xml');
+            const titulos = xml.getElementsByTagName('titulo');
+            const div = document.getElementById('titulos');
+
+            for (let i = 0; i < titulos.length; i++) {
+                const paragrafo = document.createElement('p'); // <-- Aqui foi corrigido
+                paragrafo.textContent = titulos[i].textContent;
+                div.appendChild(paragrafo);
+            }
+        })
+        .catch(error => console.error('Erro ao carregar XML:', error));
+</script>
+</body>
+</html>
