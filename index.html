@@ -20,6 +20,9 @@
 <h2>Ano do último livro</h2>
 <div id="ultimo_ano"></div>
 
+<h2>Navegação pelos Nós</h2>
+<div id="navegacao"></div>
+
 <script>
     fetch('livros.xml')
         .then(response => response.text())
@@ -79,6 +82,22 @@
             const pUltimoAno = document.createElement('p');
             pUltimoAno.textContent = `Ano do Último Livro: ${ultimoAno}`;
             divUltimoAno.appendChild(pUltimoAno);
+
+            // navegar pelo Nós
+            const divNavegacao = document.getElementById('navegacao');
+            const segundoLivroAutor = xml.getElementsByTagName('livro')[1].getElementsByTagName('autor')[0];
+
+            const livroPai = segundoLivroAutor.parentNode;
+            let tituloElementoOuTexto = livroPai.firstChild;
+
+            while (tituloElementoOuTexto && tituloElementoOuTexto.nodeType !== 1) {
+                tituloElementoOuTexto = tituloElementoOuTexto.nextSibling;
+            }
+            const tituloSegundoLivro = tituloElementoOuTexto.textContent.trim()
+            const pNavegacao = document.createElement('p');
+            pNavegacao.textContent = `Título do Segundo Livro: ${tituloSegundoLivro}`;
+            divNavegacao.appendChild(pNavegacao);
+
         })
         .catch(error => {
             console.error('Erro ao carregar o XML:', error);
