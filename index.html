@@ -23,6 +23,9 @@
 <h2>Navegação pelos Nós</h2>
 <div id="navegacao"></div>
 
+<h2>Todos os Indices</h2>
+<div id="ids"></div>
+
 <script>
     fetch('livros.xml')
         .then(response => response.text())
@@ -98,6 +101,18 @@
             pNavegacao.textContent = `Título do Segundo Livro: ${tituloSegundoLivro}`;
             divNavegacao.appendChild(pNavegacao);
 
+           // Exibe todos os IDs e títulos dos livros
+            const divIds = document.getElementById('ids');
+
+            for (let i = 0; i < livros.length; i++) {
+                const livroAtual = livros[i];
+                const atributoIdNo = livroAtual.getAttributeNode('id');
+                const idValor = atributoIdNo.nodeValue;
+                const tituloDoLivro = livroAtual.getElementsByTagName('titulo')[0].textContent.trim();
+                const pId = document.createElement('p');
+                pId.textContent = `ID: ${idValor} - ${tituloDoLivro}`;
+                divIds.appendChild(pId);
+            }
         })
         .catch(error => {
             console.error('Erro ao carregar o XML:', error);
