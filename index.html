@@ -14,6 +14,9 @@
 <h2>Informações de um livro específico</h2>
 <div id="livro-especifico"></div>
 
+<h2>Nome do primeiro autor</h2>
+<div id="primeiro-autor"></div>
+
 <script>
     fetch('livros.xml')
         .then(response => response.text())
@@ -52,6 +55,13 @@
             const infoLivro = document.createElement('P');
             infoLivro.textContent = `ID: ${id}, Título: ${titulo}, Autor: ${autor}, Ano: ${ano}`;
             divlivro.appendChild(infoLivro);
+
+            //4. Exibir o nome  do primeiro autor
+            const primeiroAutor = livros[0].getElementsByTagName('autor')[0].textContent;
+            const autor1 = document.getElementById('primeiro-autor');
+            const nomeAutor = document.createElement('p');
+            autor1.textContent = `Primeiro Autor: ${primeiroAutor}`;
+            primeiroAutor.appendChild(nomeAutor);
 
         })
         .catch(error => console.error('Erro ao carregar XML:', error));
